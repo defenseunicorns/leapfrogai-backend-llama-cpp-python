@@ -1,0 +1,9 @@
+model:
+  source: ".model/dolphin-2.2.1-mistral-7b.Q4_K_M.gguf"
+max_context_length: 8192
+stop_tokens:
+  - "</s>"
+  - "<|im_end|>"
+defaults:
+  top_p: 1.0
+  top_k: 0
