@@ -1,6 +1,6 @@
 model:
-  source: ".model/dolphin-2.2.1-mistral-7b.Q4_K_M.gguf"
-max_context_length: 8192
+  source: ".model/model.gguf"
+max_context_length: 16384
 stop_tokens:
   - "</s>"
   - "<|im_end|>"
