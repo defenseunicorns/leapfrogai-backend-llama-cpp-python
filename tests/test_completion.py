@@ -16,27 +16,40 @@ Write an example Hello, World! server in Go.<|im_end|>
 <|im_start|>assistant
 """
 
+messages = {}
+
 
 def run():
     # Set up a channel to the server
     with grpc.insecure_channel("localhost:50051") as channel:
         # Instantiate a stub (client)
 
-        stub = leapfrogai.CompletionStreamServiceStub(channel)
+        stub = leapfrogai.ChatCompletionStreamServiceStub(channel)
 
         # Create a request
-        request = leapfrogai.CompletionRequest(
-            prompt=system_prompt,
+        request = leapfrogai.ChatCompletionRequest(
+            chat_items=[
+                leapfrogai.ChatItem(
+                    role=leapfrogai.ChatRole.SYSTEM,
+                    content="You are helpful chat assistant",
+                ),
+                leapfrogai.ChatItem(
+                    role=leapfrogai.ChatRole.USER,
+                    content="List the Presidents of the United States in chronological order",
+                ),
+            ],
             max_new_tokens=2048,
             temperature=0.5,
             n=1,
         )
 
         # Make a call to the server and get a response
-        response: Iterator[leapfrogai.CompletionResponse] = stub.CompleteStream(request)
+        response: Iterator[leapfrogai.ChatCompletionResponse] = stub.ChatCompleteStream(
+            request
+        )
 
         for completion in response:
-            print(completion.choices[0].text, end="", flush=True)
+            print(completion.choices[0].chat_item.content, end="", flush=True)
 
 
 if __name__ == "__main__":
