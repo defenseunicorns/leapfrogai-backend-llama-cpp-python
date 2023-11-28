@@ -31,11 +31,11 @@ def run():
             chat_items=[
                 leapfrogai.ChatItem(
                     role=leapfrogai.ChatRole.SYSTEM,
-                    content="You are helpful chat assistant",
+                    content="You are helpful chat assistant. If you don't know the answer to something, say you don't know, do not make things up.",
                 ),
                 leapfrogai.ChatItem(
                     role=leapfrogai.ChatRole.USER,
-                    content="List the Presidents of the United States in chronological order",
+                    content="How do I write an example server using Express and Node.js?",
                 ),
             ],
             max_new_tokens=2048,
