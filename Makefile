@@ -31,9 +31,7 @@ dev:
 	leapfrogai main.Model
 
 make docker-build:
-	if ! [ -f config.yaml ]; 
-		then cp config.example.yaml config.yaml; 
-	fi
+	if ! [ -f config.yaml ]; then cp config.example.yaml config.yaml; fi
 	docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
 
 make docker-push:
