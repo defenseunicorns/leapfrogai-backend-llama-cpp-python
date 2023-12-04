@@ -1,18 +1,31 @@
 from typing import Any, Generator
+import os
+import logging
 
 from leapfrogai import BackendConfig
 from leapfrogai.llm import LLM, GenerationConfig
 from llama_cpp import Llama
 
+logger = logging.getLogger(__name__)
+
+GPU_ENABLED = (
+    False if os.environ.get("GPU_ENABLED", "False").lower() != "true" else True
+)
+
 
 @LLM
 class Model:
-    backend_config = BackendConfig()
-
-    llm = Llama(
-        model_path=backend_config.model.source,
-        n_ctx=backend_config.max_context_length,
-    )
+    def __init__(self):
+        backend_config = BackendConfig()
+        # Load (and cache) the model from the pretrained model.
+        try:
+            self.llm = Llama(
+                model_path=backend_config.model.source,
+                n_ctx=backend_config.max_context_length,
+                n_gpu_layers=-1 if GPU_ENABLED == True else 0,
+            )
+        except Exception as e:
+            logger.error(f"A runtime error occurred: {e}")
 
     def generate(
         self, prompt: str, config: GenerationConfig

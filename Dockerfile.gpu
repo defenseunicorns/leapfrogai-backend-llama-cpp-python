@@ -6,7 +6,7 @@ WORKDIR /leapfrogai
 
 COPY requirements.txt .
 
-RUN pip install -r requirements.txt --user
+RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install -r requirements.txt --user
 RUN pip install wget --user
 
 USER root
@@ -24,6 +24,9 @@ COPY --from=builder /leapfrogai/.model/ /leapfrogai/.model/
 
 COPY main.py .
 COPY config.yaml .
+
+ENV CUDA_DOCKER_ARCH=all
+ENV LLAMA_CUBLAS=1
 
 EXPOSE 50051:50051
 

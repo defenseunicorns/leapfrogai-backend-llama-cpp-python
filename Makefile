@@ -15,6 +15,9 @@ fetch-model:
 requirements-dev:
 	python -m pip install -r requirements-dev.txt
 
+requirements-gpu:
+	CMAKE_ARGS="-DLLAMA_CUBLAS=on" python -m pip install -r requirements-gpu.txt
+	
 requirements:
 	pip-sync requirements.txt requirements-dev.txt
 
@@ -23,6 +26,9 @@ build-requirements:
 
 build-requirements-dev:
 	pip-compile --extra dev -o requirements-dev.txt pyproject.toml
+
+build-requirements-gpu:
+	pip-compile --extra gpu -o requirements-gpu.txt pyproject.toml
 
 test:
 	pytest **/*.py
