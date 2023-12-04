@@ -4,9 +4,9 @@ FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-dev-${ARCH} as builder
 
 WORKDIR /leapfrogai
 
-COPY requirements.txt .
+COPY requirements-gpu.txt .
 
-RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install -r requirements.txt --user
+RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install -r requirements-gpu.txt --user
 RUN pip install wget --user
 
 USER root

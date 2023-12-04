@@ -21,5 +21,5 @@ For GPU inferencing, the environment variable `GPU_ENABLED` must be set to "True
 
 ## TODO:
 
-- [] Configurable model for Dockerfile / repeatable steps
-- [] Batched inference support (https://github.com/abetlen/llama-cpp-python/pull/951) for concurrent requests
+- [ ] Configurable model for Dockerfile / repeatable steps
+- [ ] Batched inference support (https://github.com/abetlen/llama-cpp-python/pull/951) for concurrent requests
