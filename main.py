@@ -9,14 +9,15 @@ from llama_cpp import Llama
 class Model:
     backend_config = BackendConfig()
 
+    llm = Llama(
+        model_path=backend_config.model.source,
+        n_ctx=backend_config.max_context_length,
+    )
+
     def generate(
         self, prompt: str, config: GenerationConfig
     ) -> Generator[str, Any, Any]:
-        llm = Llama(
-            model_path=self.backend_config.model.source,
-            n_ctx=self.backend_config.max_context_length,
-        )
-        for res in llm(
+        for res in self.llm(
             prompt,
             stream=True,
             temperature=config.temperature,
