@@ -1,12 +1,9 @@
 from typing import Any, Generator
 import os
-import logging
 
 from leapfrogai import BackendConfig
 from leapfrogai.llm import LLM, GenerationConfig
 from llama_cpp import Llama
-
-logger = logging.getLogger(__name__)
 
 GPU_ENABLED = (
     False if os.environ.get("GPU_ENABLED", "False").lower() != "true" else True
