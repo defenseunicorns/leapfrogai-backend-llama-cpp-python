@@ -1,4 +1,5 @@
 VERSION := $(shell git describe --abbrev=0 --tags)
+ARCH := $(shell uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)
 
 create-venv:
 	python -m venv .venv
@@ -9,7 +10,7 @@ activate-venv:
 fetch-model:
 	mkdir -p .model/
 	wget https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf
-	mv synthia-7b-v2.0.Q4_K_M.gguf .model/synthia-7b-v2.0.Q4_K_M.gguf	
+	mv synthia-7b-v2.0.Q4_K_M.gguf .model/model.gguf	
 
 requirements-dev:
 	python -m pip install -r requirements-dev.txt
@@ -30,7 +31,8 @@ dev:
 	leapfrogai main.Model
 
 make docker-build:
-	docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION} .
+	if ! [ -f config.yaml ]; then cp config.example.yaml config.yaml; fi
+	docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
 
 make docker-push:
-	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION}
+	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION}-${ARCH}
