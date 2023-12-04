@@ -1,4 +1,5 @@
 VERSION := $(shell git describe --abbrev=0 --tags)
+ARCH := $(shell uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)
 
 create-venv:
 	python -m venv .venv
@@ -30,7 +31,7 @@ dev:
 	leapfrogai main.Model
 
 make docker-build:
-	docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION} .
+	docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
 
 make docker-push:
-	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION}
+	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION}-${ARCH}
