@@ -14,7 +14,7 @@ RUN pip install wget --user
 USER root
 
 RUN mkdir -p .model/ && \
-wget ${MODEL_URL} -O .model/model.gguf
+    wget ${MODEL_URL} -O .model/model.gguf
 
 FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-${ARCH}
 
