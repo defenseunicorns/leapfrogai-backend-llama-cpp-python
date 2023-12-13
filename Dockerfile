@@ -2,6 +2,8 @@ ARG ARCH=amd64
 
 FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-dev-${ARCH} as builder
 
+ARG MODEL_URL=https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf
+
 WORKDIR /leapfrogai
 
 COPY requirements.txt .
@@ -10,9 +12,9 @@ RUN pip install -r requirements.txt --user
 RUN pip install wget --user
 
 USER root
+
 RUN mkdir -p .model/ && \
-    wget https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf && \
-    mv synthia-7b-v2.0.Q4_K_M.gguf .model/model.gguf	
+wget ${MODEL_URL} -O .model/model.gguf
 
 FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-${ARCH}
 
