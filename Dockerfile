@@ -2,6 +2,8 @@ ARG ARCH=amd64
 
 FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-dev-${ARCH} as builder
 
+ARG MODEL_URL="https://huggingface.co/TheBloke/OpenHermes-2.5-Mistral-7B-GGUF/resolve/main/openhermes-2.5-mistral-7b.Q4_K_M.gguf"
+
 WORKDIR /leapfrogai
 
 COPY requirements.txt .
@@ -10,9 +12,9 @@ RUN pip install -r requirements.txt --user
 RUN pip install wget --user
 
 USER root
+RUN echo $MODEL_URL
 RUN mkdir -p .model/ && \
-    wget https://huggingface.co/TheBloke/OpenHermes-2.5-Mistral-7B-GGUF/resolve/main/openhermes-2.5-mistral-7b.Q4_K_M.gguf && \
-    mv openhermes-2.5-mistral-7b.Q4_K_M.gguf .model/model.gguf
+    wget ${MODEL_URL} -O .model/model.gguf
 
 FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-${ARCH}
 
