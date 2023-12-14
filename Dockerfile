@@ -12,7 +12,6 @@ RUN pip install -r requirements.txt --user
 RUN pip install wget --user
 
 USER root
-
 RUN mkdir -p .model/ && \
     wget ${MODEL_URL} -O .model/model.gguf
 
