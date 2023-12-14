@@ -42,7 +42,7 @@ test:
 	pytest **/*.py
 
 dev:
-	leapfrogai main.Model
+	leapfrogai main:Model
 
 docker-build:
 	if ! [ -f config.yaml ]; then cp config.example.yaml config.yaml; fi
