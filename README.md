@@ -10,14 +10,14 @@ See [instructions](#instructions) to get the backend up and running. Then, use t
 
 ## Instructions
 
-The instructions in this section assume the following: 
+The instructions in this section assume the following:
 
 1. Properly installed and configured Python 3.11.x, to include its development tools
 2. Installed `wget`
 3. The LeapfrogAI API server is deployed and running
 4. The `config.yaml` is created based on the `config-example.yaml`
 
-### Local Development
+### Run Locally
 
 For cloning a model locally and running the development backend.
 
@@ -34,9 +34,9 @@ make requirements-dev
 make dev
 ```
 
-### Docker Container
+### Run in Docker
 
-#### Image Build and Run
+#### Local Image Build and Run
 
 For local image building and running.
 
@@ -47,6 +47,8 @@ docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest-cpu .
 # Run the docker container
 docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest-cpu
 ```
+
+#### Remote Image Build and Run
 
 For pulling a tagged image from the main release repository.
 
@@ -59,7 +61,7 @@ docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defen
 
 ### GPU Inferencing
 
-The instructions in this section assume the following: 
+The instructions in this section assume the following:
 
 1. You have properly installed one or more NVIDIA GPUs and GPU drivers
 2. You have properly installed and configured the [cuda-toolkit](https://developer.nvidia.com/cuda-toolkit) and [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/index.html)

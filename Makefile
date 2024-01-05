@@ -50,3 +50,9 @@ docker-build:
 
 docker-push:
 	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION}-${ARCH}
+
+make docker-build-gpu:
+	docker build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/whisper-gpu:${VERSION}-${ARCH} --build-arg ARCH=${ARCH} .
+
+make docker-push-gpu:
+	docker push ghcr.io/defenseunicorns/leapfrogai/whisper-gpu:${VERSION}-${ARCH}
