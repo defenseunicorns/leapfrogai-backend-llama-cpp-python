@@ -3,3 +3,4 @@ __pycache__
 .model
 config.yaml
 *.egg-info
+*.gguf

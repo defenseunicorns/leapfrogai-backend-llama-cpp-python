@@ -6,9 +6,9 @@ ARG MODEL_URL=https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/
 
 WORKDIR /leapfrogai
 
-COPY requirements.txt .
+COPY requirements-gpu.txt .
 
-RUN pip install -r requirements.txt --user
+RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install -r requirements-gpu.txt --user
 RUN pip install wget --user
 
 USER root
@@ -25,6 +25,10 @@ COPY --from=builder /leapfrogai/.model/ /leapfrogai/.model/
 
 COPY main.py .
 COPY config.yaml .
+
+ENV CUDA_DOCKER_ARCH=all
+ENV LLAMA_CUBLAS=1
+ENV GPU_ENABLED=true
 
 EXPOSE 50051:50051
 
