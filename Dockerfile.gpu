@@ -43,3 +43,11 @@ COPY config.yaml .
 EXPOSE 50051:50051
 
 ENTRYPOINT ["leapfrogai", "--app-dir=.", "main:Model"]
+
+# TODO: Find way to fix the following error:
+#   File "/leapfrogai/.venv/lib/python3.11/site-packages/llama_cpp/llama_cpp.py", line 82, in <module>
+#     _lib = _load_shared_library(_lib_base_name)
+#            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#   File "/leapfrogai/.venv/lib/python3.11/site-packages/llama_cpp/llama_cpp.py", line 71, in _load_shared_library
+#     raise RuntimeError(f"Failed to load shared library '{_lib_path}': {e}")
+# RuntimeError: Failed to load shared library '/leapfrogai/.venv/lib/python3.11/site-packages/llama_cpp/libllama.so': libcudart.so.12: cannot open shared object file: No such file or directory
