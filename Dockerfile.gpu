@@ -25,17 +25,58 @@ RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install -r requirements-gpu.txt -v
 # TODO: Change this back to using MODEL_URL before merge
 COPY .model/ .model/
 
+FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-dev-${ARCH} as python-dev
+
+WORKDIR /leapfrogai
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV LLAMA_CUBLAS=1
+ENV LD_LIBRARY_PATH="/usr/local/cuda-12.3/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+ENV CUDAToolkit_ROOT="/usr/local/cuda-12.3/"
+ENV CUDACXX="/usr/local/cuda-12.3/bin/nvcc"
+
+COPY parse_redist.py /leapfrogai/parse_redist.py
+USER root
+RUN pip install requests
+RUN ./parse_redist.py --product cuda --label 12.3.1
+RUN mkdir /usr/local/cuda-12.3/
+RUN cp -r flat/linux-x86_64/lib/ /usr/local/cuda-12.3/lib64/
+RUN cp -r flat/linux-x86_64/bin/ /usr/local/cuda-12.3/bin/
+RUN cp -r flat/linux-x86_64/include/ /usr/local/cuda-12.3/include/
+RUN cp -r flat/linux-x86_64/nvvm/lib64/ /usr/local/cuda-12.3/lib64/
+RUN cp -r flat/linux-x86_64/nvvm/bin/ /usr/local/cuda-12.3/bin/
+COPY --from=builder /usr/bin/gcc /usr/bin/gcc-nvi
+USER nonroot
+# RUN ls -la
+# RUN ls -la /lib/
+# RUN python3.11 -m venv .venv
+# ENV PATH="/leapfrogai/.venv/bin:$PATH"
+
+# COPY requirements-gpu.txt .
+# RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install -r requirements-gpu.txt -v
+
+# # TODO: Change this back to using MODEL_URL before merge
+# COPY .model/ .model/
+
 FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-${ARCH}
 
 ENV CUDA_DOCKER_ARCH=all
 ENV GPU_ENABLED=true
 ENV PATH="/leapfrogai/.venv/bin:$PATH"
-ENV LD_LIBRARY_PATH="/leapfrogai/.venv/lib64:$LD_LIBRARY_PATH"
+ENV PATH="/usr/local/cuda-12.3/bin${PATH:+:${PATH}}"
+ENV LD_LIBRARY_PATH="/usr/local/cuda-12.3/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+ENV CUDAToolkit_ROOT="/usr/local/cuda-12.3/"
+ENV CUDACXX="/usr/local/cuda-12.3/bin/nvcc"
 
 WORKDIR /leapfrogai
 
 COPY --from=builder /leapfrogai/.venv/ /leapfrogai/.venv/
 COPY --from=builder /leapfrogai/.model/ /leapfrogai/.model/
+COPY --from=python-dev /leapfrogai/flat/linux-x86_64/lib/ /usr/local/cuda-12.3/lib64/
+COPY --from=python-dev /leapfrogai/flat/linux-x86_64/bin/ /usr/local/cuda-12.3/bin/
+COPY --from=python-dev /leapfrogai/flat/linux-x86_64/include/ /usr/local/cuda-12.3/include/
+COPY --from=python-dev /leapfrogai/flat/linux-x86_64/nvvm/lib64/ /usr/local/cuda-12.3/lib64/
+COPY --from=python-dev /leapfrogai/flat/linux-x86_64/nvvm/bin/ /usr/local/cuda-12.3/bin/
 
 COPY main.py .
 COPY config.yaml .
