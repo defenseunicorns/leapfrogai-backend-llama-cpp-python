@@ -92,10 +92,10 @@ For local image building and running.
 
 ```bash
 # Build GPU docker image
-docker build -f Dockerfile.gpu.hack -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest-gpu .
+docker build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest-gpu .
 
 # Run GPU docker container with GPU resource reservation
-docker run --gpus all -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest-gpu
+docker run --gpus '"device=0"' -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest-gpu
 ```
 
 For pulling a tagged image from the main release repository.
