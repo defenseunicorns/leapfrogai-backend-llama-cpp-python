@@ -7,12 +7,12 @@ package:
     max_package_size: "1000000000"
   deploy:
     set:
-      limits_cpu: 1
+      limits_cpu: 0
       limits_memory: 4Gi
-      limits_gpu: 0
-      requests_cpu: 1
+      limits_gpu: 1
+      requests_cpu: 0
       requests_memory: 4Gi
-      requests_gpu: 0
+      requests_gpu: 1
       name: llamacpp
       image_repository: "ghcr.io/defenseunicorns/leapfrogai/llamacpp"
       image_version: 0.0.1
