@@ -1,8 +1,7 @@
 ARG ARCH=amd64
+ARG MODEL_URL=https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf
 
 FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-dev-${ARCH} as builder
-
-ARG MODEL_URL="https://huggingface.co/TheBloke/OpenHermes-2.5-Mistral-7B-GGUF/resolve/main/openhermes-2.5-mistral-7b.Q4_K_M.gguf"
 
 WORKDIR /leapfrogai
 
@@ -12,7 +11,6 @@ RUN pip install -r requirements.txt --user
 RUN pip install wget --user
 
 USER root
-RUN echo $MODEL_URL
 RUN mkdir -p .model/ && \
     wget ${MODEL_URL} -O .model/model.gguf
 

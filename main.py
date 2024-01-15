@@ -1,8 +1,13 @@
 from typing import Any, Generator
+import os
 
 from leapfrogai import BackendConfig
 from leapfrogai.llm import LLM, GenerationConfig
 from llama_cpp import Llama
+
+GPU_ENABLED = (
+    False if os.environ.get("GPU_ENABLED", "False").lower() != "true" else True
+)
 
 
 @LLM
@@ -12,6 +17,7 @@ class Model:
     llm = Llama(
         model_path=backend_config.model.source,
         n_ctx=backend_config.max_context_length,
+        n_gpu_layers=-1 if GPU_ENABLED == True else 0,
     )
 
     def generate(

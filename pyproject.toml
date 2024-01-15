@@ -6,11 +6,22 @@ description = "llama-cpp-py based backend for LeapfrogAI"
 authors = [{ name = "LeapfrogAI Authors", email = "ai@defenseunicorns.com" }]
 license = { file = "LICENSE" }
 readme = "README.md"
-requires-python = ">=3.10, <3.12"
-dependencies = ["llama-cpp-python >= 0.2.20", "leapfrogai == 0.4.0rc1"]
+requires-python = ">=3.11.4, <3.12"
+dependencies = ["llama-cpp-python == 0.2.28", "leapfrogai == 0.4.0"]
 
 [project.optional-dependencies]
-dev = ["pip-tools", "pytest", "black", "isort"]
+dev = [
+    "pip-tools",
+    "pytest",
+    "black",
+    "isort",
+    "nvidia-cublas-cu12",
+    "nvidia-cuda-runtime-cu12",
+]
+gpu = ["nvidia-cublas-cu12", "nvidia-cuda-runtime-cu12"]
 
 [tool.pytest.ini_options]
 addopts = ["--import-mode=importlib"]
+
+[tool.pip-tools]
+generate-hashes = true
