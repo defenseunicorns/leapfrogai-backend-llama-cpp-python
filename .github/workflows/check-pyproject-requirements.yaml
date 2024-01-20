@@ -1,0 +1,36 @@
+name: Check Pyproject and Requirements Changes
+
+on:
+  pull_request:
+    paths:
+      - 'pyproject.toml'
+      - 'requirements-*.txt'
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Check pyproject.toml
+      id: pyproject-changes
+      run: |
+        if [[ $(git diff --name-only ${{ github.base_ref }}..${{ github.sha }} | grep 'pyproject.toml') ]]; then
+          echo "Pyproject.toml has changed"
+          echo "::set-output name=pyproject-changed::true"
+        else
+          echo "Pyproject.toml has not changed"
+          echo "::set-output name=pyproject-changed::false"
+        fi
+
+    - name: Check requirements-*.txt
+      if: steps.pyproject-changes.outputs.pyproject-changed == 'true'
+      run: |
+        if [[ $(git diff --name-only ${{ github.base_ref }}..${{ github.sha }} | grep 'requirements-.*\.txt') ]]; then
+          echo "Requirements files have changed"
+        else
+          echo "Requirements files have not changed"
+          exit 1
+        fi
