@@ -2,8 +2,6 @@ ARG ARCH=amd64
 
 FROM nvidia/cuda:12.2.2-devel-ubuntu22.04 as builder
 
-ARG MODEL_URL=https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf
-
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LLAMA_CUBLAS=1
 ENV MODEL_URL=${MODEL_URL}
@@ -24,6 +22,7 @@ ENV PATH="/leapfrogai/.venv/bin:$PATH"
 COPY requirements-gpu.txt .
 RUN CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip install -r requirements-gpu.txt -v
 
+ARG MODEL_URL=https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf
 RUN mkdir -p .model/ && wget ${MODEL_URL} -O .model/model.gguf
 
 FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-${ARCH}
