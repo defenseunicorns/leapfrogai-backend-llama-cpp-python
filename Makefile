@@ -46,13 +46,13 @@ dev:
 
 docker-build:
 	if ! [ -f config.yaml ]; then cp config.example.yaml config.yaml; fi
-	docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
+	docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py-cpu:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
 
 docker-push:
-	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py:${VERSION}-${ARCH}
+	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py-cpu:${VERSION}-${ARCH}
 
 make docker-build-gpu:
-	docker build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/whisper-gpu:${VERSION}-${ARCH} --build-arg ARCH=${ARCH} .
+	docker build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py-gpu:${VERSION}-${ARCH} --build-arg ARCH=${ARCH} .
 
 make docker-push-gpu:
-	docker push ghcr.io/defenseunicorns/leapfrogai/whisper-gpu:${VERSION}-${ARCH}
+	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py-gpu:${VERSION}-${ARCH}
