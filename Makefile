@@ -35,7 +35,7 @@ dev:
 
 docker-build:
 	if ! [ -f config.yaml ]; then cp config.example.yaml config.yaml; fi
-	docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py-cpu:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
+	docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
 
 docker-push:
-	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-py-cpu:${VERSION}-${ARCH}
+	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${VERSION}-${ARCH}
