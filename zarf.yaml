@@ -5,13 +5,6 @@ metadata:
   description: >
     llama-cpp-python model
 
-variables:
-  - name: GPU_ENABLED
-    description: Optionally turn on GPU inferencing for environments with capable CUDA devices (true/false)
-    default: false
-    prompt: true
-    pattern: "^(true|false)$"
-
 constants:
   - name: IMAGE_VERSION
     value: "###ZARF_PKG_TMPL_IMAGE_VERSION###"
