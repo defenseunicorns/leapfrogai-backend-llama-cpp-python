@@ -45,9 +45,6 @@ make create-venv
 source .venv/bin/activate
 make requirements-dev
 
-# OPTIONAL: for contributing and maintaining dependencies only
-pip install pip-tools
-
 # Clone Model
 make fetch-model
 

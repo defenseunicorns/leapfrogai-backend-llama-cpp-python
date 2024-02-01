@@ -21,22 +21,16 @@ fetch-model:
 	mv *.gguf .model/model.gguf	
 
 requirements-dev:
-	python -m pip install -r requirements-dev.txt
-
-requirements-gpu:
-	CMAKE_ARGS="-DLLAMA_CUBLAS=on" python -m pip install -r requirements-gpu.txt
+	CMAKE_ARGS="-DLLAMA_CUBLAS=on" python -m pip install -r requirements-dev.txt
 	
 requirements:
-	pip-sync requirements.txt requirements-dev.txt
+	CMAKE_ARGS="-DLLAMA_CUBLAS=on" pip-sync requirements.txt requirements-dev.txt
 
 build-requirements:
 	pip-compile -o requirements.txt pyproject.toml
 
 build-requirements-dev:
 	pip-compile --extra dev -o requirements-dev.txt pyproject.toml
-
-build-requirements-gpu:
-	pip-compile --extra gpu -o requirements-gpu.txt pyproject.toml
 
 test:
 	pytest **/*.py
