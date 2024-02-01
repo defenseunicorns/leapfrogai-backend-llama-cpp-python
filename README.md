@@ -40,9 +40,6 @@ export GPU_ENABLED=true
 <br/>
 
 ```bash
-# Install FFMPEG locally
-sudo apt install ffmpeg
-
 # Setup Virtual Environment
 make create-venv
 source .venv/bin/activate
