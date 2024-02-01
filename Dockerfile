@@ -16,7 +16,7 @@ RUN apt-get -y install python3.11-full git wget
 
 WORKDIR /leapfrogai
 
-# create virtual environment for easy portability and minimal size
+# create virtual environment for light-weight portability and minimal libraries
 RUN python3.11 -m venv .venv
 ENV PATH="/leapfrogai/.venv/bin:$PATH"
 
