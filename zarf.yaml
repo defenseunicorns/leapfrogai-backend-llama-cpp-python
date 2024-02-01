@@ -10,6 +10,7 @@ variables:
     description: Optionally turn on GPU inferencing for environments with capable CUDA devices (true/false)
     default: false
     prompt: true
+    pattern: "^(true|false)$"
 
 constants:
   - name: IMAGE_VERSION
@@ -23,11 +24,3 @@ components:
     import:
       name: model
       url: oci://ghcr.io/defenseunicorns/packages/leapfrogai/leapfrogai-model:0.4.0-skeleton
-    actions:
-      onDeploy:
-        defaults:
-          shell:
-            linux: sh
-        after:
-          - cmd: |
-              if [ "${ZARF_VAR_GPU_ENABLED}" = "true" ]; then kubectl patch deployment llama-cpp-python-model-llama-cpp-python -n leapfrogai --patch '{"spec":{"template":{"spec":{"containers":[{"name":"leapfrogai-model","resources":{"limits":{"cpu":"1","memory":"20Gi","nvidia.com/gpu":"1"},"requests":{"cpu":"1","memory":"4Gi","nvidia.com/gpu":"1"}}}]}}}}'; fi
