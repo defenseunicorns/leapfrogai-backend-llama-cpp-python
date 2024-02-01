@@ -1,10 +1,3 @@
-VERSION := $(shell git describe --abbrev=0 --tags 2> /dev/null )
-ifeq ($(VERSION),)
-  VERSION := latest
-endif
-
-ARCH := $(shell uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)
-
 MODEL_URL ?= https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf
 
 .PHONY: all
@@ -37,10 +30,3 @@ test:
 
 dev:
 	leapfrogai main:Model
-
-docker-build:
-	if ! [ -f config.yaml ]; then cp config.example.yaml config.yaml; fi
-	docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
-
-docker-push:
-	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${VERSION}-${ARCH}
