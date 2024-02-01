@@ -2,7 +2,7 @@
 
 ## Description
 
-A LeapfrogAI API-compatible llama-cpp-python wrapper for audio transcription generation.
+A LeapfrogAI API-compatible [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) wrapper for quantized and un-quantized model inferencing across CPU and GPU infrastructures.
 
 ## Usage
 
@@ -23,6 +23,12 @@ The following are additional assumptions for GPU inferencing:
 3. You have properly installed one or more NVIDIA GPUs and GPU drivers
 4. You have properly installed and configured the [cuda-toolkit](https://developer.nvidia.com/cuda-toolkit) and [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/index.html)
 </details>
+
+### Model Selection
+
+The default model that comes with this backend in this repository's officially released images is a [4-bit quantization of the Synthia-7b model](https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF).
+
+Other models can be loaded into this backend by modifying the `MODEL_URL` during image creation or Makefile command execution. The `MODEL_URL` must point to a single quantized model file, else you will need to use the [llama.cpp](https://github.com/ggerganov/llama.cpp) converter on an un-quantized model. Please see the Dockerfile or Makefile for further details.
 
 ### Run Locally
 
