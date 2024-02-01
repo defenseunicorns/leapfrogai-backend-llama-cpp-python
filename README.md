@@ -62,25 +62,16 @@ python main.py
 
 ### Run in Docker
 
-<details>
-<summary><b>GPU Variation</b></summary>
-<br/>
-The following additional flags must be added to the `docker run` command for GPU inferencing:
-
-```bash
-docker run --gpus all -e GPU_ENABLED=true -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest
-```
-
-</details>
-
 #### Local Image Build and Run
 
 For local image building and running.
 
 ```bash
-docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest .
-# add the "--gpus all" flag for CUDA inferencing
-docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest
+make docker-build
+# without GPU, CPU-only
+make docker-run
+# with GPU
+make docker-run-gpu
 ```
 
 #### Remote Image Build and Run
