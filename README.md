@@ -1,8 +1,8 @@
-# LeapfrogAI LLaMA-CPP-Python Backend
+# LeapfrogAI llama-cpp-python Backend
 
 ## Description
 
-A LeapfrogAI API-compatible llama-cpp-python wrapper for quantized model inferencing.
+A LeapfrogAI API-compatible llama-cpp-python wrapper for audio transcription generation.
 
 ## Usage
 
@@ -13,39 +13,74 @@ See [instructions](#instructions) to get the backend up and running. Then, use t
 The instructions in this section assume the following:
 
 1. Properly installed and configured Python 3.11.x, to include its development tools
-2. Installed `wget`
-3. The LeapfrogAI API server is deployed and running
-4. The `config.yaml` is created based on the `config-example.yaml`
+2. The LeapfrogAI API server is deployed and running
+
+<details>
+<summary><b>GPU Variation</b></summary>
+<br/>
+The following are additional assumptions for GPU inferencing:
+
+3. You have properly installed one or more NVIDIA GPUs and GPU drivers
+4. You have properly installed and configured the [cuda-toolkit](https://developer.nvidia.com/cuda-toolkit) and [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/index.html)
+</details>
 
 ### Run Locally
 
-For cloning a model locally and running the development backend.
+<details>
+<summary><b>GPU Variation</b></summary>
+<br/>
+The following additional variables must be exported for local GPU inferencing:
 
 ```bash
+# enable GPU switch
+export GPU_ENABLED=true
+```
+
+</details>
+<br/>
+
+```bash
+# Install FFMPEG locally
+sudo apt install ffmpeg
+
+# Setup Virtual Environment
+make create-venv
+source .venv/bin/activate
+make requirements-dev
+
+# OPTIONAL: for contributing and maintaining dependencies only
+pip install pip-tools
+
 # Clone Model
 make fetch-model
 
-# Setup Python Virtual Environment
-make create-venv
-make activate-venv
-make requirements-dev
-
 # Start Model Backend
-make dev
+python main.py
 ```
 
+
+
 ### Run in Docker
+
+<details>
+<summary><b>GPU Variation</b></summary>
+<br/>
+The following additional flags must be added to the `docker run` command for GPU inferencing:
+
+```bash
+docker run --gpus all -e GPU_ENABLED=true -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest
+```
+
+</details>
 
 #### Local Image Build and Run
 
 For local image building and running.
 
 ```bash
-# Build the docker image
-docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest-cpu .
-
-# Run the docker container
-docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest-cpu
+docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest .
+# add the "--gpus all" flag for CUDA inferencing
+docker run -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest
 ```
 
 #### Remote Image Build and Run
@@ -55,54 +90,7 @@ For pulling a tagged image from the main release repository.
 Where `<IMAGE_TAG>` is the released packages found [here](https://github.com/orgs/defenseunicorns/packages/container/package/leapfrogai%2Fllama-cpp-python).
 
 ```bash
-# Download and run remote image
-docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:<IMAGE_TAG>
-```
-
-### GPU Inferencing
-
-The instructions in this section assume the following:
-
-1. You have properly installed one or more NVIDIA GPUs and GPU drivers
-2. You have properly installed and configured the [cuda-toolkit](https://developer.nvidia.com/cuda-toolkit) and [nvidia-container-toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/index.html)
-
-#### Run Locally
-
-For cloning a model locally and running the development backend.
-
-```bash
-# Clone Model
-make fetch-model
-
-# Setup Python Virtual Environment
-make create-venv
-make activate-venv
-make requirements-gpu
-
-# enable GPU switch
-export GPU_ENABLED=true
-
-# Start Model Backend
-make dev
-```
-
-#### Run in Docker
-
-For local image building and running.
-
-```bash
-# Build GPU docker image
-docker build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest-gpu .
-
-# Run GPU docker container with GPU resource reservation
-docker run --gpus '"device=0"' -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:latest-gpu
-```
-
-For pulling a tagged image from the main release repository.
-
-Where `<IMAGE_TAG>` is the released packages found [here](https://github.com/orgs/defenseunicorns/packages/container/package/leapfrogai%2Fllama-cpp-python).
-
-```bash
-# Download and run remote GPU image
-docker run -p 50051:50051 -v ./config.yaml:/leapfrogai/config.yaml ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:<IMAGE_TAG>
+docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:<IMAGE_TAG> .
+# add the "--gpus all" flag for CUDA inferencing
+docker run -p 50051:50051 -d --name llama-cpp-python ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:<IMAGE_TAG>
 ```
