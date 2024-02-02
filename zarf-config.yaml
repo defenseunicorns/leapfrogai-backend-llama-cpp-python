@@ -10,9 +10,3 @@ package:
       name: llama-cpp-python
       image_repository: "ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python"
       image_version: 0.2.0
-      limits_cpu: 1
-      limits_memory: 20Gi
-      limits_gpu: 0
-      requests_cpu: 1
-      requests_memory: 4Gi
-      requests_gpu: 0
