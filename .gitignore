@@ -5,3 +5,4 @@ config.yaml
 *.egg-info
 *.gguf
 *.tar.zst
+.pytest_cache/
