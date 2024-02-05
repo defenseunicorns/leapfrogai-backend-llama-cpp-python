@@ -26,7 +26,7 @@ ARG FILENAME=synthia-7b-v2.0.Q4_K_M.gguf
 ARG REVISION=3f65d882253d1f15a113dabf473a7c02a004d2b5
 COPY scripts/ scripts/
 RUN REPO_ID=${REPO_ID} FILENAME=${FILENAME} REVISION=${REVISION} python3.11 scripts/model_download.py
-
+RUN mv .model/*.gguf .model/model.gguf
 
 # create virtual environment for light-weight portability and minimal libraries
 RUN python3.11 -m venv .venv

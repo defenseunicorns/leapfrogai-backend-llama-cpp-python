@@ -11,8 +11,8 @@ activate-venv:
 	source .venv/bin/activate
 
 fetch-model:
-	mkdir .model/
 	python scripts/model_download.py
+	mv .model/*.gguf .model/model.gguf
 
 requirements-dev:
 	CMAKE_ARGS="-DLLAMA_CUBLAS=on" python -m pip install -r requirements-dev.txt
@@ -35,6 +35,9 @@ dev:
 docker-build:
 	if ! [ -f config.yaml ]; then cp config.example.yaml config.yaml; fi
 	docker build -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
+
+docker-run:
+	docker run --gpus device=0 -e GPU_ENABLED=true -d -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${VERSION}-${ARCH}
 
 docker-push:
 	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${VERSION}-${ARCH}

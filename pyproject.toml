@@ -15,7 +15,13 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pip-tools", "pytest", "black", "isort"]
+dev = [
+    "pip-tools",
+    "pytest",
+    "black",
+    "isort",
+    "huggingface_hub[cli,hf_transfer]",
+]
 
 [tool.pytest.ini_options]
 addopts = ["--import-mode=importlib"]
