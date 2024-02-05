@@ -11,9 +11,8 @@ activate-venv:
 	source .venv/bin/activate
 
 fetch-model:
-	mkdir -p .model/
-	wget ${MODEL_URL}
-	mv *.gguf .model/model.gguf	
+	mkdir .model/
+	python scripts/model_download.py
 
 requirements-dev:
 	CMAKE_ARGS="-DLLAMA_CUBLAS=on" python -m pip install -r requirements-dev.txt

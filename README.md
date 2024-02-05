@@ -52,6 +52,7 @@ source .venv/bin/activate
 make requirements-dev
 
 # Clone Model
+# Supply a REPO_ID, FILENAME and REVISION if a different model is desired
 make fetch-model
 
 # Start Model Backend
@@ -67,6 +68,7 @@ python main.py
 For local image building and running.
 
 ```bash
+# Supply a REPO_ID, FILENAME and REVISION if a different model is desired
 make docker-build
 # without GPU, CPU-only
 make docker-run
