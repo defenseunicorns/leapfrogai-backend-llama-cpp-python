@@ -18,6 +18,8 @@ RUN apt-get -y install python3.11-full git \
     && python3.11 -m ensurepip \
     && python3.11 -m pip install -U huggingface_hub[cli,hf_transfer]
 
+WORKDIR /leapfrogai
+
 # download model
 ARG REPO_ID=TheBloke/SynthIA-7B-v2.0-GGUF
 ARG FILENAME=synthia-7b-v2.0.Q4_K_M.gguf
@@ -25,7 +27,6 @@ ARG REVISION=3f65d882253d1f15a113dabf473a7c02a004d2b5
 COPY scripts/ scripts/
 RUN REPO_ID=${REPO_ID} FILENAME=${FILENAME} REVISION=${REVISION} python3.11 scripts/model_download.py
 
-WORKDIR /leapfrogai
 
 # create virtual environment for light-weight portability and minimal libraries
 RUN python3.11 -m venv .venv
