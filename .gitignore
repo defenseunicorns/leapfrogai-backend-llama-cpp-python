@@ -6,3 +6,4 @@ config.yaml
 *.gguf
 *.tar.zst
 .pytest_cache/
+.python-version
