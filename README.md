@@ -38,6 +38,11 @@ Other models can be loaded into this backend by modifying the `MODEL_URL` during
 The following additional variables must be exported for local GPU inferencing:
 
 ```bash
+# install with GPU compilation and deps
+make requirements-dev
+# OR
+make requirements-gpu
+
 # enable GPU switch
 export GPU_ENABLED=true
 ```
@@ -49,7 +54,7 @@ export GPU_ENABLED=true
 # Setup Virtual Environment
 make create-venv
 source .venv/bin/activate
-make requirements-dev
+make requirements
 
 # Clone Model
 # Supply a REPO_ID, FILENAME and REVISION if a different model is desired
@@ -59,11 +64,24 @@ make fetch-model
 python main.py
 ```
 
-
-
 ### Run in Docker
 
 #### Local Image Build and Run
+
+<details>
+<summary><b>GPU Variation</b></summary>
+<br/>
+The following additional variables must be exported for local GPU inferencing:
+
+```bash
+# Supply a REPO_ID, FILENAME and REVISION if a different model is desired
+make docker-build-gpu
+# without GPU
+make docker-run-gpu
+```
+
+</details>
+<br/>
 
 For local image building and running.
 
@@ -72,8 +90,6 @@ For local image building and running.
 make docker-build
 # without GPU, CPU-only
 make docker-run
-# with GPU
-make docker-run-gpu
 ```
 
 #### Remote Image Build and Run

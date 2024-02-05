@@ -14,6 +14,37 @@ constants:
 components:
   - name: import-model
     required: true
+    only:
+      flavor: cpu
     import:
       name: model
       url: oci://ghcr.io/defenseunicorns/packages/leapfrogai/leapfrogai-model:0.5.0-skeleton
+    actions:
+      onCreate:
+        before:
+          - cmd: echo "ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python"
+            setVariables:
+              - name: image_repository
+      onDeploy:
+        before:
+          - cmd: echo "ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python"
+            setVariables:
+              - name: image_repository
+  - name: import-model-gpu
+    required: true
+    only:
+      flavor: gpu
+    import:
+      name: model
+      url: oci://ghcr.io/defenseunicorns/packages/leapfrogai/leapfrogai-model:0.5.0-skeleton
+    actions:
+      onCreate:
+        before:
+          - cmd: echo "ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu"
+            setVariables:
+              - name: image_repository
+      onDeploy:
+        before:
+          - cmd: echo "ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu"
+            setVariables:
+              - name: image_repository
