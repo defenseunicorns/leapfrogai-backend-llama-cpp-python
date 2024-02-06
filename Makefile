@@ -1,5 +1,10 @@
 MODEL_URL ?= https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf
-VERSION ?= $(shell git fetch --tags && git tag -l "*.*.*" | sort -V | tail -n 1 | sed -e 's/^v//')
+
+VERSION ?= $(shell git describe --abbrev=0 --tags | sed -e 's/^v//')
+ifeq ($(VERSION),)
+  VERSION := latest
+endif
+
 ARCH ?= $(shell uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)
 
 .PHONY: all

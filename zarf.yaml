@@ -18,9 +18,9 @@ components:
       flavor: cpu
     import:
       name: model
-      url: oci://localhost:5000/defenseunicorns/packages/leapfrogai/leapfrogai-model:0.5.0-skeleton
+      url: oci://ghcr.io/defenseunicorns/packages/leapfrogai/leapfrogai-model:0.5.0-skeleton
     images:
-      - localhost:5000/defenseunicorns/leapfrogai/llama-cpp-python:0.2.0
+      - ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:0.2.0
 
   - name: import-model
     required: true
@@ -28,6 +28,6 @@ components:
       flavor: gpu
     import:
       name: model
-      url: oci://localhost:5000/defenseunicorns/packages/leapfrogai/leapfrogai-model:0.5.0-skeleton
+      url: oci://ghcr.io/defenseunicorns/packages/leapfrogai/leapfrogai-model:0.5.0-skeleton
     images:
-      - localhost:5000/defenseunicorns/leapfrogai/llama-cpp-python-gpu:0.2.0
+      - ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu:0.2.0
