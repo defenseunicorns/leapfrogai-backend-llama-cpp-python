@@ -3,24 +3,24 @@
 *.md @defenseunicorns/leapfrogai 
 
 # Core Code
-/tests/ @gerred @YrrepNoj @gphorvath
-/main.py @gerred @YrrepNoj @gphorvath
+/tests/ @defenseunicorns/leapfrogai
+/main.py @defenseunicorns/leapfrogai
 
 # Packaging
-/Dockerfile @gerred @YrrepNoj @gphorvath
-/Dockerfile.gpu @gerred @YrrepNoj @gphorvath
-/zarf-config.yaml @gerred @YrrepNoj @gphorvath
-/zarf.yaml @gerred @YrrepNoj @gphorvath
+/Dockerfile @defenseunicorns/leapfrogai
+/Dockerfile.gpu @defenseunicorns/leapfrogai
+/zarf-config.yaml @defenseunicorns/leapfrogai
+/zarf.yaml @defenseunicorns/leapfrogai
 
 # Pipeline and Project Files
-/.github/ @gerred @YrrepNoj @gphorvath
-/.gitignore @gerred @YrrepNoj @gphorvath
-/Makefile @gerred @YrrepNoj @gphorvath
-/pyproject.toml @gerred @YrrepNoj @gphorvath
-/requirements-dev.txt @gerred @YrrepNoj @gphorvath
-/requirements-gpu.txt @gerred @YrrepNoj @gphorvath
-/requirements.txt @gerred @YrrepNoj @gphorvath
+/.github/ @defenseunicorns/leapfrogai
+/.gitignore @defenseunicorns/leapfrogai
+/Makefile @defenseunicorns/leapfrogai
+/pyproject.toml @defenseunicorns/leapfrogai
+/requirements-dev.txt @defenseunicorns/leapfrogai
+/requirements-gpu.txt @defenseunicorns/leapfrogai
+/requirements.txt @defenseunicorns/leapfrogai
 
 # Additional privileged files
-/CODEOWNERS @jeff-mccoy @mikevanhemert @austenbryan @gerred
+/CODEOWNERS @jeff-mccoy @austenbryan @gerred
 /LICENSE @jeff-mccoy @austenbryan @gerred
