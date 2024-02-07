@@ -1,5 +1,3 @@
-MODEL_URL ?= https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF/resolve/main/synthia-7b-v2.0.Q4_K_M.gguf
-
 VERSION ?= $(shell git describe --abbrev=0 --tags | sed -e 's/^v//')
 ifeq ($(VERSION),)
   VERSION := latest
