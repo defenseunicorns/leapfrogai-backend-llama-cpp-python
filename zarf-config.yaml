@@ -5,8 +5,3 @@ package:
       image_version: 0.2.0
       name: llama-cpp-python
     max_package_size: "1000000000"
-  deploy:
-    set:
-      name: llama-cpp-python
-      image_repository: "ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python"
-      image_version: 0.2.0
