@@ -54,7 +54,7 @@ export GPU_ENABLED=true
 # Setup Virtual Environment
 make create-venv
 source .venv/bin/activate
-make requirements
+make requirements-dev
 
 # Clone Model
 # Supply a REPO_ID, FILENAME and REVISION if a different model is desired
