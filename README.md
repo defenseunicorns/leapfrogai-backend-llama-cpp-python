@@ -28,7 +28,7 @@ The following are additional assumptions for GPU inferencing:
 
 The default model that comes with this backend in this repository's officially released images is a [4-bit quantization of the Synthia-7b model](https://huggingface.co/TheBloke/SynthIA-7B-v2.0-GGUF).
 
-Other models can be loaded into this backend by modifying the `MODEL_URL` during image creation or Makefile command execution. The `MODEL_URL` must point to a single quantized model file, else you will need to use the [llama.cpp](https://github.com/ggerganov/llama.cpp) converter on an un-quantized model. Please see the Dockerfile or Makefile for further details.
+Other models can be loaded into this backend by modifying or supplying the [model_download.py](./scripts/model_download.py) arguments during image creation or Makefile command execution. The arguments must point to a single quantized model file, else you will need to use the [llama.cpp](https://github.com/ggerganov/llama.cpp) converter on an un-quantized model. Please see the Dockerfile or Makefile for further details.
 
 ### Run Locally
 
