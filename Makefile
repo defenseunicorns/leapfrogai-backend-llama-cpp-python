@@ -10,9 +10,6 @@ ARCH ?= $(shell uname -m | sed s/aarch64/arm64/ | sed s/x86_64/amd64/)
 create-venv:
 	python -m venv .venv
 
-activate-venv:
-	source .venv/bin/activate
-
 fetch-model:
 	python scripts/model_download.py
 	mv .model/*.gguf .model/model.gguf
