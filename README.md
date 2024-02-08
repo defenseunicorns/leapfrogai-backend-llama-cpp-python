@@ -61,7 +61,7 @@ make requirements-dev
 make fetch-model
 
 # Start Model Backend
-python main.py
+make dev
 ```
 
 ### Run in Docker
