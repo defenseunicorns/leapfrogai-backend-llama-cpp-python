@@ -1,7 +1,37 @@
-.venv
-__pycache__
-.model
-config.yaml
-*.egg-info
-*.gguf
+# Zarf packages
+zarf*.tar.zst
+zarf-sbom/
+temp/
+tmp
+
+# Models Directory
+.model/*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Distribution / packaging
+*.egg-info/
+*.egg
 .python-version
+config.yaml
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# PyCharm
+.idea/
+
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/

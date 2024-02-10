@@ -1,12 +1,12 @@
 [project]
 name = "leapfrogai-backend-llama-cpp-py"
-version = "0.1.0"
+version = "0.2.0"
 
 description = "llama-cpp-py based backend for LeapfrogAI"
 authors = [{ name = "LeapfrogAI Authors", email = "ai@defenseunicorns.com" }]
 license = { file = "LICENSE" }
 readme = "README.md"
-requires-python = ">=3.11.4, <3.12"
+requires-python = "== 3.11.6"
 dependencies = ["llama-cpp-python == 0.2.28", "leapfrogai == 0.4.0"]
 
 [project.optional-dependencies]
@@ -15,10 +15,11 @@ dev = [
     "pytest",
     "black",
     "isort",
-    "nvidia-cublas-cu12",
-    "nvidia-cuda-runtime-cu12",
+    "huggingface_hub[cli,hf_transfer]",
+    "nvidia-cublas-cu12 == 12.3.4.1",
+    "nvidia-cuda-runtime-cu12 == 12.3.101",
 ]
-gpu = ["nvidia-cublas-cu12", "nvidia-cuda-runtime-cu12"]
+gpu = ["nvidia-cublas-cu12 == 12.3.4.1", "nvidia-cuda-runtime-cu12 == 12.3.101"]
 
 [tool.pytest.ini_options]
 addopts = ["--import-mode=importlib"]
