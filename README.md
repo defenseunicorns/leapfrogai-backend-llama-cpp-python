@@ -127,9 +127,9 @@ Packaging for both GPu and CPU is displayed below:
 ```bash
 # CPU package
 zarf package create --set IMAGE_REPOSITORY=ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python --set IMAGE_VERSION=<IMAGE_TAG> --set NAME=llama-cpp-python --insecure
-zarf package publish zarf-package-llama-cpp-python-amd64-<IMAGE_TAG>.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai/llama-cpp-python
+zarf package publish zarf-package-llama-cpp-python-amd64-<IMAGE_TAG>.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai
 
 # GPU package
 zarf package create --set IMAGE_REPOSITORY=ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu --set IMAGE_VERSION=<IMAGE_TAG> --set NAME=llama-cpp-python-gpu --insecure
-zarf package publish zarf-package-llama-cpp-python-gpu-amd64-<IMAGE_TAG>.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai/llama-cpp-python-gpu
+zarf package publish zarf-package-llama-cpp-python-gpu-amd64-<IMAGE_TAG>.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai
 ```
