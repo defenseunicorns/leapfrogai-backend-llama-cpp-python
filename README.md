@@ -121,3 +121,15 @@ docker run --gpus device=0 -e GPU_ENABLED=true -p 50051:50051 -d --name llama-cp
 llama-cpp-python requires access to host system GPU drivers in order to operate when compiled specifically for GPU inferencing. Even if no layers are offloaded to the GPU at runtime, llama-cpp-python will throw an unrecoverable exception. That being said, a separate `Dockerfile.gpu` and Zarf package instruction are maintained.
 
 For Zarf package creation, the following flag must be added when a user requires the GPU Docker image: `--set IMAGE_REPOSITORY=ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu`
+
+Packaging for both GPu and CPU is displayed below:
+
+```bash
+# CPU package
+zarf package create --set IMAGE_REPOSITORY=ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python --set IMAGE_VERSION=<IMAGE_TAG> --set NAME=llama-cpp-python --insecure
+zarf package publish zarf-package-llama-cpp-python-amd64-<IMAGE_TAG>.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai/llama-cpp-python
+
+# GPU package
+zarf package create --set IMAGE_REPOSITORY=ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu --set IMAGE_VERSION=<IMAGE_TAG> --set NAME=llama-cpp-python-gpu --insecure
+zarf package publish zarf-package-llama-cpp-python-gpu-amd64-<IMAGE_TAG>.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai/llama-cpp-python-gpu
+```
