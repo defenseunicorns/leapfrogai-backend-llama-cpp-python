@@ -122,7 +122,7 @@ llama-cpp-python requires access to host system GPU drivers in order to operate 
 
 For Zarf package creation, the following flag must be added when a user requires the GPU Docker image: `--set IMAGE_REPOSITORY=ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu`
 
-Packaging for both GPu and CPU is displayed below:
+Packaging for both GPU and CPU capability is displayed below:
 
 ```bash
 # CPU package
