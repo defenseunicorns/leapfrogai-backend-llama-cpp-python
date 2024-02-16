@@ -56,4 +56,4 @@ docker-push:
 	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${VERSION}-${ARCH}
 
 docker-push-gpu:
-	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu:${VERSION}-${ARCH}
+	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu:${VERSION}

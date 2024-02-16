@@ -27,8 +27,8 @@ jobs:
 
       - name: Push images
         run: |
-          make docker-build-gpu VERSION=$VERSION ARCH=amd64
-          make docker-push-gpu VERSION=$VERSION ARCH=amd64
+          make docker-build-gpu VERSION=$VERSION
+          make docker-push-gpu VERSION=$VERSION
 
       - name: Install Zarf
         uses: defenseunicorns/setup-zarf@f95763914e20e493bb5d45d63e30e17138f981d6 # v1.0.0
