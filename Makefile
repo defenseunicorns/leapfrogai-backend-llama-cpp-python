@@ -44,7 +44,7 @@ docker-build:
 
 docker-build-gpu:
 	if ! [ -f config.yaml ]; then cp config.example.yaml config.yaml; fi
-	docker build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu:${VERSION}-${ARCH} . --build-arg ARCH=${ARCH}
+	docker build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu:${VERSION} .
 
 docker-run:
 	docker run -d -p 50051:50051 ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${VERSION}-${ARCH}
@@ -56,4 +56,4 @@ docker-push:
 	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${VERSION}-${ARCH}
 
 docker-push-gpu:
-	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu:${VERSION}-${ARCH}
+	docker push ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python-gpu:${VERSION}
