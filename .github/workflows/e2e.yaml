@@ -1,0 +1,60 @@
+name: e2e
+on:
+  pull_request:
+    paths-ignore:
+      - "**.md"
+      - "CODEOWNERS"
+      - ".gitignore"
+      - "docs/**"
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  e2e:
+    # runs-on: ai-ubuntu-big-boy-8-core
+    runs-on: ubuntu-latest
+     
+    steps:
+        - name: Checkout Repo
+          uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+        - name: Setup Python
+          uses: actions/setup-python@0a5c61591373683505ea898e09a3ea4f39ef2b9c #v5.0.0
+          with:
+            python-version-file: 'pyproject.toml'
+
+        - name: Install Python Deps
+          run: pip install openai pytest
+
+        - name: Install UDS-CLI
+          run: |
+            wget https://github.com/defenseunicorns/uds-cli/releases/download/v0.9.2/uds-cli_v0.9.2_Linux_amd64
+            chmod +x uds-cli_v0.9.2_Linux_amd64
+            sudo mv uds-cli_v0.9.2_Linux_amd64 /usr/local/bin/uds
+
+        - name: Setup K3D
+          run: |
+            wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | TAG=v5.6.0 bash
+          
+        - name: Create UDS Cluster
+          run: |
+            uds deploy oci://ghcr.io/defenseunicorns/packages/uds/bundles/k3d-core-istio-dev:0.13.1 --confirm
+
+        - name: Install lfai-api 
+          run: |
+            uds zarf package deploy oci://ghcr.io/defenseunicorns/packages/leapfrogai-api:v0.5.1 --confirm
+
+        # Since Zarf is slow when using local images, we are pushing the llama.cpp image to a local registry
+        - name: Build & Deploy llama.cpp
+          run: |
+            docker run -d -p 5000:5000 --restart=always --name registry registry:2
+            cp config.example.yaml config.yaml
+            docker buildx build -t localhost:5000/defenseunicorns/leapfrogai/llama-cpp-python:e2e-amd64 .
+            docker push localhost:5000/defenseunicorns/leapfrogai/llama-cpp-python:e2e-amd64 
+            uds zarf dev deploy  --registry-override=ghcr.io=localhost:5000 --create-set=IMAGE_VERSION=e2e-amd64 --no-yolo
+
+        - name: Run Tests
+          run: |
+            python -m pytest . -v
