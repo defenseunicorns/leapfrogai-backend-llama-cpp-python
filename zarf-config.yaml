@@ -2,6 +2,12 @@ package:
   create:
     set:
       image_repository: "ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python"
-      image_version: 0.2.0
+      image_version: local-d24d
       name: llama-cpp-python
     max_package_size: "1000000000"
+  deploy:
+    set:
+      requests_memory: "0"
+      requests_cpu: "0"
+      limits_memory: "0"
+      limits_cpu: "0"
