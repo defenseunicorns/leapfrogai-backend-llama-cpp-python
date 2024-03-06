@@ -56,4 +56,4 @@ jobs:
 
         - name: Run Tests
           run: |
-            python -m pytest . -v
+            python -m pytest ./tests/e2e -v
