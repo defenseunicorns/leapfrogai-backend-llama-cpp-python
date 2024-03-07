@@ -30,6 +30,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@0d103c3126aa41d772a8362f6aa67afac040f80c # v3.1.0
 
+      - name: Copy config.yaml
+        run: |
+          cp config.yaml.example config.yaml
+
       - name: Build images
         run: |
           docker buildx build --platform amd64,arm64 -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${{ steps.get_version.outputs.version-without-v }} --push .
