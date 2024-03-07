@@ -32,7 +32,7 @@ jobs:
 
       - name: Copy config.yaml
         run: |
-          cp config.yaml.example config.yaml
+          cp config.example.yaml config.yaml
 
       - name: Build images
         run: |
