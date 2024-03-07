@@ -52,4 +52,4 @@ jobs:
         run: |
           zarf package publish zarf-package-llama-cpp-python-amd64-${{ steps.get_version.outputs.version-without-v }}.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai
           zarf package publish zarf-package-llama-cpp-python-arm64-${{ steps.get_version.outputs.version-without-v }}.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai
-          zarf package publish zarf-package-llama-cpp-python-gpu-${{ steps.get_version.outputs.version-without-v }}.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai
+          zarf package publish zarf-package-llama-cpp-python-amd64-${{ steps.get_version.outputs.version-without-v }}-gpu.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai
