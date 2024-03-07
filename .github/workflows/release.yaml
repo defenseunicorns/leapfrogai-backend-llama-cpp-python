@@ -37,7 +37,7 @@ jobs:
       - name: Build images
         run: |
           docker buildx build --platform amd64,arm64 -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${{ steps.get_version.outputs.version-without-v }} --push .
-          docker buildx build --platform amd64,arm64 -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${{ steps.get_version.outputs.version-without-v }} --push .
+          docker buildx build -f Dockerfile.gpu -t ghcr.io/defenseunicorns/leapfrogai/llama-cpp-python:${{ steps.get_version.outputs.version-without-v }}-gpu --push .
 
       - name: Install Zarf
         uses: defenseunicorns/setup-zarf@f95763914e20e493bb5d45d63e30e17138f981d6 # v1.0.0
@@ -46,8 +46,10 @@ jobs:
         run: |
           zarf package create . --set=PACKAGE_VERSION=${{ steps.get_version.outputs.version-without-v }} --set=IMAGE_VERSION=${{ steps.get_version.outputs.version-without-v }} --architecture amd64 --confirm
           zarf package create . --set=PACKAGE_VERSION=${{ steps.get_version.outputs.version-without-v }} --set=IMAGE_VERSION=${{ steps.get_version.outputs.version-without-v }} --architecture arm64 --confirm
+          zarf package create . --set=PACKAGE_VERSION=${{ steps.get_version.outputs.version-without-v }}-gpu --set=IMAGE_VERSION=${{ steps.get_version.outputs.version-without-v }}-gpu --confirm
 
       - name: Publish Zarf Package
         run: |
           zarf package publish zarf-package-llama-cpp-python-amd64-${{ steps.get_version.outputs.version-without-v }}.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai
           zarf package publish zarf-package-llama-cpp-python-arm64-${{ steps.get_version.outputs.version-without-v }}.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai
+          zarf package publish zarf-package-llama-cpp-python-gpu-${{ steps.get_version.outputs.version-without-v }}.tar.zst oci://ghcr.io/defenseunicorns/packages/leapfrogai
