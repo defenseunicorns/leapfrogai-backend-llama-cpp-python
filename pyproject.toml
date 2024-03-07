@@ -1,6 +1,6 @@
 [project]
 name = "leapfrogai-backend-llama-cpp-py"
-version = "0.2.0"
+version = "0.2.1"
 
 description = "llama-cpp-py based backend for LeapfrogAI"
 authors = [{ name = "LeapfrogAI Authors", email = "ai@defenseunicorns.com" }]
