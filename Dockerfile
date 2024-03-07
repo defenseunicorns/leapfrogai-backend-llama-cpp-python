@@ -1,7 +1,5 @@
-ARG ARCH=amd64
-
 # hardened and slim python w/ developer tools image
-FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-dev-${ARCH} as builder
+FROM --platform=$BUILDPLATFORM ghcr.io/defenseunicorns/leapfrogai/python:3.11-dev as builder
 
 WORKDIR /leapfrogai
 
@@ -22,7 +20,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 # hardened and slim python image
-FROM ghcr.io/defenseunicorns/leapfrogai/python:3.11-${ARCH}
+FROM --platform=$BUILDPLATFORM ghcr.io/defenseunicorns/leapfrogai/python:3.11
 
 ENV PATH="/leapfrogai/.venv/bin:$PATH"
 
