@@ -1,5 +1,7 @@
 # LeapfrogAI llama-cpp-python Backend
 
+> ***⚠️This repo is archived in favor of the LeapfrogAI monorepo: https://github.com/defenseunicorns/leapfrogai⚠️***
+
 ## Description
 
 A LeapfrogAI API-compatible [llama-cpp-python](https://github.com/abetlen/llama-cpp-python) wrapper for quantized and un-quantized model inferencing across CPU and GPU infrastructures.
